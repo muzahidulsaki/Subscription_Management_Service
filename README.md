@@ -7,60 +7,77 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Subscription Management Microservice
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+A standalone backend microservice developed with **Laravel** to handle user subscription plans, durations, and expiration logic. This service is containerized using **Docker** for easy deployment and testing.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+##  Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Package Management:** Pre-seeded packages (Gold, Platinum, Diamond, Trial).
+- **Subscription Logic:**
+  - Users can subscribe to plans.
+  - **Trial Logic:** A user can only avail of the "Trial" package once.
+  - **Overlap Protection:** A user cannot have two active subscriptions simultaneously.
+  - **Auto Expiry:** Expiration dates are calculated automatically based on package duration.
+- **History & Status:** Check active subscription status and full subscription history.
+- **Microservice Architecture:** No internal user authentication (relies on external `user_id`).
 
-## Learning Laravel
+##  Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Framework:** Laravel (Latest Stable)
+- **Database:** MySQL 8.0
+- **Containerization:** Docker & Docker Compose
+- **Language:** PHP 8.2
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+##  Installation & Running (Docker)
 
-## Laravel Sponsors
+You can run the entire project with a few commands using Docker.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Prerequisites
+- Docker Desktop installed and running.
+- Git installed.
 
-### Premium Partners
+### Step-by-Step Guide
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+1. **Clone the Repository**
+   ```bash
+   git clone [https://github.com/YOUR_USERNAME/subscription-service.git](https://github.com/YOUR_USERNAME/subscription-service.git)
+   cd subscription-service
+2. **Setup Environment**
+   ```bash
+   cp .env.example .env
+3. **Start Containers**
+   ```bash
+   docker compose up -d --build
+4. **Install Dependencies & Database Setup**
+   ```bash
+   docker compose exec app composer install
+   docker compose exec app php artisan key:generate
+   docker compose exec app php artisan migrate:fresh --seed
 
-## Contributing
+##  Database Design (Overview)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Packages Table
+| Column | Description |
+|------|------------|
+| id | Primary key |
+| name | Package name |
+| price | Package price |
+| duration_days | Duration in days |
+| type | trial / monthly |
 
-## Code of Conduct
+### Subscriptions Table
+| Column | Description |
+|------|------------|
+| id | Primary key |
+| user_id | External user ID |
+| package_id | Linked package |
+| type | trial / monthly |
+| started_at | Subscription start |
+| ends_at | Subscription expiry |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+##  API Documentation
