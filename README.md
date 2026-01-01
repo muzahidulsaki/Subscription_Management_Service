@@ -81,3 +81,54 @@ You can run the entire project with a few commands using Docker.
 ---
 
 ##  API Documentation
+
+#### `1. Get All Packages`
+Returns a list of available subscription packages.
+
+- Endpoint: GET /api/subscribe
+  
+  ![image alt](https://github.com/muzahidulsaki/Subscription_Management_Service/blob/8701e4376ec0050b14cd2dce8927867d3a47301c/public/images/1.packages.png)
+
+#### `2. Subscribe a User`
+Assign a package to a user. Validates trial usage and overlapping subscriptions.
+
+- Endpoint: POST /api/subscribe
+- Body:
+  
+  ```bash
+   {
+    "user_id": 1002,
+    "package_id": 1
+    }
+
+  
+![image alt](https://github.com/muzahidulsaki/Subscription_Management_Service/blob/8701e4376ec0050b14cd2dce8927867d3a47301c/public/images/2.subscribe.png)
+
+#### `3. Overlapping Subscriptions`
+Assign a package to a user. Validates trial usage and overlapping subscriptions.
+
+- Endpoint: POST /api/subscribe
+- Body:
+  
+  ```bash
+   {
+    "user_id": 1002,
+    "package_id": 1
+    }
+
+  
+![image alt](https://github.com/muzahidulsaki/Subscription_Management_Service/blob/8701e4376ec0050b14cd2dce8927867d3a47301c/public/images/3.overlap.png)
+
+#### `4. Check Subscription Status`
+Check if a user has an active plan.
+
+- Endpoint: GET /api/status/{user_id}
+
+![image alt](https://github.com/muzahidulsaki/Subscription_Management_Service/blob/8701e4376ec0050b14cd2dce8927867d3a47301c/public/images/4.status.png)
+
+#### `5. Subscription History`
+View all past subscriptions for a user.
+
+- Endpoint: GET /api/history/{user_id}
+
+![image alt](https://github.com/muzahidulsaki/Subscription_Management_Service/blob/8701e4376ec0050b14cd2dce8927867d3a47301c/public/images/5.history.png)
