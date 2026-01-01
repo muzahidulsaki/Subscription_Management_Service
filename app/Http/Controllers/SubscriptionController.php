@@ -94,6 +94,7 @@ class SubscriptionController extends Controller
                 'status' => 'active',
                 'package' => $activeSubscription->package->name,
                 'type' => $activeSubscription->type,
+                'started_at' => $activeSubscription->started_at,
                 'ends_at' => $activeSubscription->ends_at,
                 'days_left' => Carbon::now()->diffInDays($activeSubscription->ends_at)
             ]);
