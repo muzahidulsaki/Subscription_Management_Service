@@ -37,8 +37,7 @@ You can run the entire project with a few commands using Docker.
 
 1. **Clone the Repository**
    ```bash
-   git clone [https://github.com/YOUR_USERNAME/subscription-service.git](https://github.com/YOUR_USERNAME/subscription-service.git)
-   cd subscription-service
+   git clone 
 2. **Setup Environment**
    ```bash
    cp .env.example .env
