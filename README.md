@@ -78,7 +78,7 @@ You can run the entire project with a few commands using Docker.
 #### `1. Get All Packages`
 Returns a list of available subscription packages.
 
-- Endpoint: GET /api/subscribe
+- Endpoint: GET /api/packages
   
   ![image alt](https://github.com/muzahidulsaki/Subscription_Management_Service/blob/8701e4376ec0050b14cd2dce8927867d3a47301c/public/images/1.packages.png)
 
